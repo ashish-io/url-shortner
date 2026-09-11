@@ -17,15 +17,17 @@ def create_and_store_short_code(url: LinkCreate, session: Session = Depends(get_
 @router.get("/{short_code}")
 def redirect_to_long_url(short_code: str, session: Session = Depends(get_session)):
 
-  cache_key = short_code
+  cache_key = f"url:{short_code}"
 
   cache_value = r.get(cache_key)
 
 
-  if cache_key:
+  if cache_value is not None:
+    print("HITTING THE CACHE")
     return RedirectResponse(url=cache_value, status_code=302)
+  
   else:
-
+    print("HITTING THE DATABASE")
     statement = select(Link).where(Link.short_code == short_code)
     result = session.exec(statement).first()
 

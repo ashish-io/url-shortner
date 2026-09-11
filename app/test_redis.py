@@ -5,7 +5,7 @@ async def main():
     r = redis.Redis(host="localhost", port=6379, decode_responses=True)
 
     await r.set("greeting", "hello from async python")
-    value = await r.get("greeting")
+    value = await r.get("hehe")
 
     print(value)
 
