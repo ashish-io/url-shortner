@@ -11,6 +11,8 @@ from fastapi.responses import RedirectResponse
 router = APIRouter()
 
 @router.post("/shortern", response_model=Link)
+
+
 def create_and_store_short_code(url: LinkCreate, session: Session = Depends(get_session)):
 
   link = create_unique_short_link(session,url.long_url)
