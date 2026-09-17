@@ -9,13 +9,14 @@ def create_unique_short_link(session, long_url):
     link = Link(long_url=long_url, short_code=short_code)
     session.add(link)
 
-
     try:
       session.commit()
       session.refresh(link)
       return link
     except IntegrityError:
       session.rollback()
+
+
 
     
 

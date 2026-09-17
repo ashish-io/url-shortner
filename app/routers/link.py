@@ -5,6 +5,7 @@ from sqlmodel import Session, select
 from ..services.link_service import create_unique_short_link
 from fastapi.responses import RedirectResponse
 from ..services.redis_cofig import r
+from ..services.rate_limiter_serivice import rate_limiter
 
 
 router = APIRouter()
@@ -15,7 +16,7 @@ def create_and_store_short_code(url: LinkCreate, session: Session = Depends(get_
   return link
 
 @router.get("/{short_code}")
-def redirect_to_long_url(short_code: str, session: Session = Depends(get_session)):
+def redirect_to_long_url(short_code: str, session: Session = Depends(get_session),access : None = Depends(rate_limiter(limit=10, window_seconds=60))):
 
   cache_key = f"url:{short_code}"
 
