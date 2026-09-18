@@ -6,6 +6,7 @@ class Link(SQLModel, table = True):
   long_url : str
   short_code: str = Field(unique = True, index = True)
   created_at: datetime = Field(default_factory=datetime.utcnow)
+  created_by :int = Field(foreign_key = "user.id")
 
 class LinkCreate(SQLModel):
   long_url: str
