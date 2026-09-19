@@ -16,6 +16,6 @@ def get_one_user(user_id: int, session:Session = Depends(get_session), current_u
   
   return user
 
-            
-                                 
-
+@router.get("/test")
+def test():
+    return {"message": "Hello from FastAPI"}

@@ -10,3 +10,7 @@
 h1 {
   color: blue;
 }
+
+#message {
+    font-weight: bold;
+}

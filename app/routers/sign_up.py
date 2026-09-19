@@ -15,7 +15,7 @@ def register(user: UserCreate, session: Session = Depends(get_session)):
   existing_user = session.exec(select(User).where(User.username == user.username)).first()
 
   if existing_user is not None:
-    raise HTTPException(status_code=401, detail="User already registered, proceed to Login!!")
+    raise HTTPException(status_code=409, detail="User already registered, proceed to Login!!")
 
   #if user is new then:
   new_user=User(
