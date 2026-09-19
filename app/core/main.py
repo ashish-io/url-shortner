@@ -1,9 +1,11 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
-from .database import engine
 from contextlib import asynccontextmanager
+
+from .database import engine
 from ..models import link, user
-from ..routers import link
+from ..routers import link, user, sign_up
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -19,8 +21,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(link.router)
+app.include_router(user.router)
+app.include_router(sign_up.router)
 
-from fastapi.middleware.cors import CORSMiddleware
+
 
 app.add_middleware(
     CORSMiddleware,
