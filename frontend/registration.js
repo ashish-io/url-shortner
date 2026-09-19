@@ -36,6 +36,8 @@ registrationForm.addEventListener("submit", async function(event){
  
   if(response.status === 200){
   message.textContent = data.message;
+
+  window.location.href = "login.html";
   }
   else{
     message.textContent = data.detail;

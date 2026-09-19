@@ -38,7 +38,7 @@ def login(form: OAuth2PasswordRequestForm = Depends(), session: Session = Depend
   user = session.exec(select(User).where(User.username == form.username)).first()
 
   if user is None:
-    raise HTTPException(status_code=401, detail="User dont exist, Register first!!")
+    raise HTTPException(status_code=404, detail="User dont exist, Register first!!")
 
   if  not verify_password(password, user.hashed_password):
     raise HTTPException(status_code = 401, detail="Wrong Password")
@@ -49,7 +49,7 @@ def login(form: OAuth2PasswordRequestForm = Depends(), session: Session = Depend
 
   return {"access_token": token, "token_type": "bearer"}
 
-  
+
 
 
 
